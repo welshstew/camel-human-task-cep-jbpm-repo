@@ -1,0 +1,26 @@
+package org.kie.example.project1;
+
+rule "Sliding Time Windows allow the user to write rules that will only match events occurring in the last X time units." 
+ruleflow-group "Validation"
+salience 1
+when
+    $requestQualifier: RequestQualifier(processed == false)
+    $number: Number( intValue >=2 ) from accumulate($r: RequestQualifier( ) over window:time( 10s ),count( $r ) )
+then
+   	System.out.println("Request qualified as critical: " + $requestQualifier);
+    modify($requestQualifier) {
+        setProcessed(true),
+        setCritical(true);
+    }
+end
+
+rule "Mark RequestQualifiers as processed "
+ruleflow-group "Validation"
+salience 0
+
+when
+    $requestQualifier: RequestQualifier(processed == false)
+then
+   	System.out.println("Mark non critical request as processed: " + $requestQualifier);
+    modify($requestQualifier) { setProcessed(true) }
+end
