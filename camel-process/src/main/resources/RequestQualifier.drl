@@ -1,11 +1,11 @@
 package org.kie.example.project1;
 
-rule "Sliding Time Windows allow the user to write rules that will only match events occurring in the last X time units." 
+rule "Mark an error as critical when there are 5 or more errors in the 10 seconds"
 ruleflow-group "Validation"
 salience 1
 when
     $requestQualifier: RequestQualifier(processed == false)
-    $number: Number( intValue >=2 ) from accumulate($r: RequestQualifier( ) over window:time( 10s ),count( $r ) )
+    $number: Number( intValue >=5 ) from accumulate($r: RequestQualifier( ) over window:time( 10s ),count( $r ) )
 then
    	System.out.println("Request qualified as critical: " + $requestQualifier);
     modify($requestQualifier) {
@@ -14,7 +14,7 @@ then
     }
 end
 
-rule "Mark RequestQualifiers as processed "
+rule "Mark RequestQualifiers as processed"
 ruleflow-group "Validation"
 salience 0
 
