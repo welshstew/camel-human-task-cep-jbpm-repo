@@ -5,7 +5,8 @@ ruleflow-group "Validation"
 salience 1
 when
     $requestQualifier: RequestQualifier(processed == false)
-    $number: Number( intValue >=5 ) from accumulate($r: RequestQualifier( ) over window:time( 10s ),count( $r ) )
+    Number( intValue >=5 ) from accumulate($r: RequestQualifier( ) over window:time( 10s ),count( $r ) )
+    Number( intValue ==0 ) from accumulate($r: RequestQualifier( critical == true) over window:time(10m ),count( $r ) )
 then
    	System.out.println("Request qualified as critical: " + $requestQualifier);
     modify($requestQualifier) {
