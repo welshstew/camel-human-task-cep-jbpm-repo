@@ -20,6 +20,10 @@ Authoring -> Project authoring, Open Project Editor, Build and Deploy
 Clone https://github.com/bibryam/camel-jbpm-demo.git and deploy the Camel route to Fuse by following the instructions.
 The Camel route will quickly send 10 errors and the business process will create processes for each of them and qualify only one as critical error with a Human Task associated. The Human Tasks and the processes contains full details about the errors.
 
+
+![Process List](https://2.bp.blogspot.com/-n6WS0YrsJfA/ViAHUGD1FlI/AAAAAAAAC_M/Ts4J9Z_IRJ4/s1600/BusinessProcess.png)
+
+
  
 ####License
 ASLv2
